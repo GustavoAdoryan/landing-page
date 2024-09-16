@@ -3,7 +3,7 @@
 }
 
 .reverse-color:hover {
-    color: var(--second-text-color);
+    color: var(--third-text-color);
 }
 
 .ml-lg {
