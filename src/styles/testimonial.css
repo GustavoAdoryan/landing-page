@@ -1,92 +1,135 @@
-.testimonials-section {
-    text-align: center;
-    padding: 60px 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    max-width: 100%;
+#testimonials {
     min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #d5d5d5;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-}
-
-.section-subtitle {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #666;
-    margin-bottom: 10px;
-}
-
-.section-title {
-    font-size: 2.4rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #1a1a1a;
-}
-
-.section-description {
-    font-size: 1.1rem;
-    margin-bottom: 40px;
-    color: #888;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.testimonials-grid {
-    display: flex;
-    gap: 30px;
     justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
+    gap: 2rem;
+
+    header {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-inline: 2rem;
+        align-items: center;
+    }
+
+    header :first-child {
+        color: var(--primary-color);
+        font-weight: var(--fw-bold);
+    }
+
+    p {
+        color: #000000;
+    }
+
+    .carousel {
+        display: flex;
+        width: 80%;
+    }
+
+    .carousel:hover {
+        .carousel-content {
+            animation-play-state: paused;
+            cursor: pointer;
+        }
+    }
+
+    .carousel-content {
+        display: flex;
+        gap: 1.5rem;
+        animation: swipe 20s linear infinite;
+        width: max-content;
+    }
+
+    .carousel-content::after {
+        content: "";
+        display: block;
+    }
+
+    .carousel-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 10rem;
+        /* Reduz a largura mínima */
+        max-width: 12rem;
+        /* Define uma largura máxima */
+        background: #ffffff;
+        /* Fundo branco */
+        border-radius: 1rem;
+        /* Bordas arredondadas suaves */
+        padding: 1.5rem;
+        /* Ajusta o preenchimento */
+        text-align: center;
+        gap: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* Sombra leve */
+        border: 1px solid #e0e0e0;
+        /* Borda cinza clara */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Efeitos suaves */
+
+        >img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+        }
+
+        .rating {
+            display: flex;
+            margin-top: auto;
+        }
+
+        .names {
+            font-size: var(--fs-sm);
+            font-weight: var(--fw-bold);
+        }
+
+        .names :first-child {
+            color: var(--text-color);
+            font-size: var(--fs-base);
+        }
+
+    }
 }
 
-.testimonial-card {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    flex: 1;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+@keyframes swipe {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-50%));
+    }
 }
 
-.testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
+@media (width >=580px) {
+    #testimonials {
+        gap: 5rem;
+        align-items: center;
 
-.testimonial-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    object-fit: cover;
-}
+        header p {
+            width: 60%;
+        }
 
-.testimonial-text {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
-}
+        .carousel {
+            overflow-x: hidden;
+            width: 50%;
+        }
 
-.testimonial-rating {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #4B8BBE;
-}
+        .testimony {
+            width: 80%;
+        }
 
-.testimonial-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #1a1a1a;
-    margin-top: 10px;
-}
-
-.testimonial-role {
-    font-size: 0.9rem;
-    color: #666;
-    text-transform: uppercase;
-    margin-bottom: 0;
+        .carousel-card {
+            min-width: 30rem;
+            min-height: 26.875rem;
+        }
+    }
 }

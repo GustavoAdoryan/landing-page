@@ -1,39 +1,76 @@
-import { useEffect, useState } from "react";
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { FormEvent, useEffect, useState } from "react";
 
 import Close from "../assets/close.svg";
+import Face from "../assets/face.svg";
 import Menu from "../assets/hamburguer.svg";
 import AnaliseLogo from "../assets/images/analise-logo.png";
+import Girl_1 from "../assets/images/girl_1.jpg";
+import Man_1 from "../assets/images/man_1.jpg";
+import Man_2 from "../assets/images/man_2.jpg";
 import PythonLogo from "../assets/images/python-logo.png";
 import RaspagemLogo from "../assets/images/raspagem-logo.png";
 import HeroRectangleOne from "../assets/images/rectangleOne.png";
 import HeroRectangleTwo from "../assets/images/rectangleTwo.png";
+import Instagram from "../assets/instagram.svg";
 import Logo from "../assets/logo.svg";
+import Star_completa from "../assets/star_completa.svg";
+import Star_incompleta from "../assets/star_incompleta.svg";
+import Tiktok from "../assets/tiktok.svg";
+import Verificado from "../assets/verificado.svg";
 import Button from "../components/button.tsx";
+import "../styles/contact.css";
 import "../styles/header.css";
 import "../styles/hero.css";
+import "../styles/pricing.css";
+import "../styles/rodape.css";
 import "../styles/solutions.css";
 import "../styles/testimonial.css";
 import "../styles/utility.css";
 
-
-
 export default function Home() {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [email, setEmail] = useState(""); // Estado para e-mail
+    const [message, setMessage] = useState(""); // Estado para mensagem
+    const [status, setStatus] = useState(""); // Estado para o status do envio
 
     useEffect(() => {
-        const toggleBodyOverflow = (isMenuOpen: boolean) => {
-            document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-        };
-
-        toggleBodyOverflow(showMobileMenu);
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
+        const html = document.querySelector("html");
+        if (html) {
+            html.style.overflow = showMobileMenu ? "hidden" : "auto";
+        }
     }, [showMobileMenu]);
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        setStatus("Enviando...");
+
+        try {
+            const response = await fetch('https://function-1-278843949001.us-central1.run.app', {
+                method: 'POST',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer `,
+                },
+                body: JSON.stringify({
+                    toMail: email,
+                    content: message,
+                }),
+            });
+
+            if (response.ok) {
+                setStatus("Mensagem enviada com sucesso!");
+                setEmail("");
+                setMessage("");
+            } else {
+                const error = await response.json();
+                setStatus(`Erro: ${error.error || "Falha ao enviar mensagem."}`);
+            }
+        } catch (error) {
+            setStatus(`Erro ao enviar: ${error}`);
+        }
+    };
 
     return (
         <>
@@ -46,7 +83,7 @@ export default function Home() {
                                 <a href="#">Home</a>
                             </li>
                             <li>
-                                <a href="#solution">Soluções</a>
+                                <a href="#solutions">Soluções</a>
                             </li>
                             <li>
                                 <a href="#testimonials">Depoimentos</a>
@@ -71,7 +108,7 @@ export default function Home() {
                                 <div className="container flex">
                                     <ul>
                                         <li><a href="#">Home</a></li>
-                                        <li><a href="#solution">Soluções</a></li>
+                                        <li><a href="#solutions">Soluções</a></li>
                                         <li><a href="#testimonials">Depoimentos</a></li>
                                         <li><a href="#pricing">Preços</a></li>
                                         <li><a href="#contact">Contato</a></li>
@@ -130,71 +167,252 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <section className="testimonials-section">
-                <div className="testimonials-container">
-                    <h3 className="section-subtitle">Conselho de quem conhece</h3>
-                    <h2 className="section-title">Cada cliente importa!</h2>
-                    <p className="section-description">
-                        Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics.
+            <section id="testimonials">
+                <header>
+                    <span>
+                        <p className="desktop-only">Conselho de quem conhece</p>
+                        <h2>Cada cliente importa!</h2>
+                    </span>
+                    <p>
+                        Quem já pediu sabe da qualidade das nossas receitas, estamos tirando aquela ideia de que
+                        comida congelada tem de ser algo sem gosto, acompanhe abaixo os testemunhos de quem já comprou e aprovou.
                     </p>
-                    <div className="testimonials-grid">
-                        <div className="testimonial-card">
-                            <img
-                                src="https://via.placeholder.com/100"
-                                alt="Ellon Ma"
-                                className="testimonial-image"
-                            />
-                            <p className="testimonial-text">
-                                Slate helps you see how many more days you need to work to reach your financial goal for the month and year.
-                            </p>
-                            <div className="testimonial-rating">⭐⭐⭐⭐☆</div>
-                            <h4 className="testimonial-name">Ellon Ma</h4>
-                            <p className="testimonial-role">CEO BING CHIILING</p>
+                </header>
+                <section className="carousel">
+                    <div className="carousel-content">
+                        <div className="carousel-card">
+                            <img src={Girl_1} alt="Imagem perfil cliente" />
+                            <span className="testimony">
+                                <p>
+                                    Adotar as práticas do mercado verde nunca foi tão recompensador. Com os serviços certos, alcançar o sucesso é uma questão de tempo.
+                                </p>
+                            </span>
+                            <span className="rating">
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_incompleta} alt="ícone estrela sem fundo" width={20} height={22} />
+                            </span>
+                            <span className="names">
+                                <p>Jane Doe</p>
+                                <p>Diretora de Inovação</p>
+                            </span>
                         </div>
 
-                        <div className="testimonial-card">
-                            <img
-                                src="https://via.placeholder.com/100"
-                                alt="Ryan Gosling"
-                                className="testimonial-image"
-                            />
-                            <p className="testimonial-text">
-                                Slate helps you see how many more days you need to work to reach your financial goal for the month and year.
-                            </p>
-                            <div className="testimonial-rating">⭐⭐⭐⭐☆</div>
-                            <h4 className="testimonial-name">Ryan Gosling</h4>
-                            <p className="testimonial-role">Agrônomo</p>
-                        </div>
-                        <div className="testimonial-card">
-                            <img
-                                src="https://via.placeholder.com/100"
-                                alt="Jane Doe"
-                                className="testimonial-image"
-                            />
-                            <p className="testimonial-text">
-                                O uso do Slate melhorou significativamente a maneira como gerencio minhas tarefas diárias e estabeleço minhas metas.
-                            </p>
-                            <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                            <h4 className="testimonial-name">Jane Doe</h4>
-                            <p className="testimonial-role">Cientista de Dados</p>
+                        <div className="carousel-card">
+                            <img src={Man_1} alt="Imagem perfil cliente" />
+                            <span className="testimony">
+                                <p>
+                                    Trabalhar com foco e inovação trouxe resultados incríveis para minha equipe. Nunca foi tão fácil manter a motivação em alta.
+                                </p>
+                            </span>
+                            <span className="rating">
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                            </span>
+                            <span className="names">
+                                <p>John Smith</p>
+                                <p>Engenheiro de Software</p>
+                            </span>
                         </div>
 
-                        <div className="testimonial-card">
-                            <img
-                                src="https://via.placeholder.com/100"
-                                alt="John Smith"
-                                className="testimonial-image"
-                            />
-                            <p className="testimonial-text">
-                                A simplicidade e a eficiência da visualização de dados do Slate são incomparáveis. Recomendo muito para profissionais de qualquer área.
-                            </p>
-                            <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                            <h4 className="testimonial-name">John Smith</h4>
-                            <p className="testimonial-role">Engenheiro de Software</p>
+                        <div className="carousel-card">
+                            <img src={Man_2} alt="Imagem perfil cliente" />
+                            <span className="testimony">
+                                <p>
+                                    Experiências compartilhadas fortalecem equipes. Nosso sucesso é reflexo do suporte incrível que recebemos todos os dias.
+                                </p>
+                            </span>
+                            <span className="rating">
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                            </span>
+                            <span className="names">
+                                <p>Ryan Gosling</p>
+                                <p>Empreendedor Social</p>
+                            </span>
+                        </div>
+
+                        <div className="carousel-card">
+                            <img src={Girl_1} alt="Imagem perfil cliente" />
+                            <span className="testimony">
+                                <p>
+                                    Adotar as práticas do mercado verde nunca foi tão recompensador. Com os serviços certos, alcançar o sucesso é uma questão de tempo.
+                                </p>
+                            </span>
+                            <span className="rating">
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_completa} alt="ícone estrela" width={22} height={20} />
+                                <img src={Star_incompleta} alt="ícone estrela sem fundo" width={20} height={22} />
+                            </span>
+                            <span className="names">
+                                <p>Jane Doe</p>
+                                <p>Diretora de Inovação</p>
+                            </span>
                         </div>
                     </div>
-                </div>
+                </section>
             </section>
+            <section id="pricing" className="container">
+                <header>
+                    <h2 className="section-title">Planos Disponíveis</h2>
+                    <p className="section-description">
+                        Escolha o plano ideal para suas necessidades de raspagem de dados e análise avançada com Python.
+                    </p>
+                </header>
+                <section className="even-columns gap-1.5">
+                    <div className="pricing-card">
+                        <h3>Básico</h3>
+                        <p>R$ 9,90/mês</p>
+                        <ul className="features">
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Raspagem de até 1 website</span>
+                            </li>
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Exportação de dados em formato CSV</span>
+                            </li>
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Suporte básico</span>
+                            </li>
+                        </ul>
+                        <button>Comece agora</button>
+                    </div>
+                    <div className="pricing-card highlight">
+                        <div className="highlight-title">1 MÊS GRÁTIS</div>
+                        <h3>Premium</h3>
+                        <p>R$ 19,90/mês</p>
+                        <ul className="features">
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Raspagem de até 5 websites</span>
+                            </li>
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Agendamento de tarefas automatizadas</span>
+                            </li>
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Suporte prioritário via e-mail</span>
+                            </li>
+                        </ul>
+                        <button>Comece agora</button>
+                    </div>
+                    <div className="pricing-card">
+                        <h3>Empresarial</h3>
+                        <p>R$ 49,90/mês</p>
+                        <ul className="features">
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Raspagem de websites ilimitados</span>
+                            </li>
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Análise de dados personalizada</span>
+                            </li>
+                            <li>
+                                <img src={Verificado} alt="ícone estrela" width={22} height={20} />
+                                <span>Suporte dedicado 24/7</span>
+                            </li>
+                        </ul>
+                        <button>Comece agora</button>
+                    </div>
+                </section>
+            </section>
+            <section id="contact" className="container">
+                <h2 className="section-title">Entre em Contato</h2>
+                <p className="section-description">
+                    Fale comigo para saber mais sobre os serviços de raspagem de dados e análise de dados para sua empresa.
+                </p>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="email">E-mail</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            placeholder="Digite seu e-mail"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="message">Mensagem</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows={5}
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            required
+                            placeholder="Escreva sua mensagem aqui"
+                        ></textarea>
+                    </div>
+                    <button type="submit">Enviar</button>
+                    {status && <p>{status}</p>} {/* Exibe o status do envio */}
+                </form>
+            </section>
+            <footer id="footer" className="footer-container">
+                <div className="footer-content container">
+                    <div className="footer-column">
+                        <img src={Logo} alt="Logo DonaFrost" width={220} height={80} />
+                        <div className="social-icons">
+                            <a href="#"><i className="fa fa-instagram">
+                                <img src={Instagram} alt="ícone estrela" width={22} height={20} />
+                            </i>
+                            </a>
+                            <a href="#"><i className="fa fa-facebook">
+                                <img src={Face} alt="ícone estrela" width={22} height={20} />
+                            </i>
+                            </a>
+                            <a href="#"><i className="fa fa-youtube">
+                                <img src={Tiktok} alt="ícone estrela" width={22} height={20} />
+                            </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="footer-column">
+                        <h3>Empresa</h3>
+                        <ul>
+                            <li><a href="#">Sobre nós</a></li>
+                            <li><a href="#">Faça parte do time</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div className="footer-column">
+                        <h3>Funcionalidades</h3>
+                        <ul>
+                            <li><a href="#">Marketing</a></li>
+                            <li><a href="#">Análise de dados</a></li>
+                            <li><a href="#">Boot discord</a></li>
+                        </ul>
+                    </div>
+                    <div className="footer-column">
+                        <h3>Recursos</h3>
+                        <ul>
+                            <li><a href="#">IOS & Android</a></li>
+                            <li><a href="#">Teste a Demo</a></li>
+                            <li><a href="#">Clientes</a></li>
+                            <li><a href="#">API</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="footer-bottom">
+                    <p>Feito com amor na aula de Programação Web💙 ©2024 Adoryan - Todos os direitos reservados.</p>
+                </div>
+            </footer>
         </>
     );
 }

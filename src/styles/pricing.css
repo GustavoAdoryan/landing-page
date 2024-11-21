@@ -1,0 +1,206 @@
+#pricing {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    box-sizing: border-box;
+}
+
+#pricing header {
+    text-align: center;
+    max-width: 800px;
+}
+
+#pricing .section-description {
+    font-size: 1rem;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+#pricing .section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+#pricing .even-columns {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    /* Adaptação para telas menores */
+}
+
+.pricing-card {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    border: 1px solid #e3e4e8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 320px;
+    height: 500px;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-card h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 0.5rem;
+}
+
+.pricing-card p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #222222;
+    margin: 0.5rem 0;
+}
+
+.pricing-card .features {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    text-align: left; /* Garante que o texto também fique alinhado à esquerda */
+}
+
+.pricing-card .features li {
+    font-size: 1rem;
+    color: #000000;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente o ícone e o texto */
+    gap: 0.5rem; /* Espaçamento entre o ícone e o texto */
+    line-height: 1.5; /* Define o espaçamento entre as linhas */
+}
+
+.pricing-card .features li::before {
+    /* content: "✔"; */
+    align-items: left;
+    color: #000000;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.pricing-card button {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pricing-card button:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+
+.pricing-card.highlight {
+    background-color: #F8F8F8;
+    border: 2px solid #000000;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-card.highlight .highlight-title {
+    background: #000000;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Efeito de animação no hover */
+.pricing-card.highlight:hover {
+    animation: pulse 1s infinite ease-in-out;
+}
+
+.pricing-card.highlight button {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #000000;
+}
+
+.pricing-card.highlight button:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1.05);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #pricing .section-title {
+        font-size: 2rem;
+    }
+
+    .pricing-card {
+        max-width: 100%;
+        height: auto;
+        padding: 1.5rem;
+    }
+
+    .pricing-card h3 {
+        font-size: 1rem;
+    }
+
+    .pricing-card p {
+        font-size: 1.5rem;
+    }
+
+    .pricing-card .features li {
+        font-size: 0.875rem;
+    }
+
+    .pricing-card button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    .pricing-card.highlight {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .pricing-card.highlight:hover {
+        animation: none;
+    }
+}
