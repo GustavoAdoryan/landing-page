@@ -29,9 +29,9 @@ import "../styles/utility.css";
 
 export default function Home() {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
-    const [email, setEmail] = useState(""); // Estado para e-mail
-    const [message, setMessage] = useState(""); // Estado para mensagem
-    const [status, setStatus] = useState(""); // Estado para o status do envio
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
         const html = document.querySelector("html");
@@ -46,7 +46,7 @@ export default function Home() {
         setStatus("Enviando...");
 
         try {
-            const response = await fetch('https://function-1-278843949001.us-central1.run.app', {
+            const response = await fetch('api/function-2', {
                 method: 'POST',
                 headers: {
                     'Access-Control-Allow-Origin': '*',
